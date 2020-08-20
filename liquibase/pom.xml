@@ -30,10 +30,16 @@
 
     <profiles>
         <profile>
-            <id>devProfile</id>
+            <id>buildProfile</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <profile>
+            <id>devProfile</id>
             <build>
                 <plugins>
                     <plugin>

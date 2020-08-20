@@ -8,9 +8,9 @@
 
 
 
-    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts-integration-tests\1_init_db.xml"/>
-    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts-integration-tests\2_product_tables.xml"/>
-    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts-integration-tests\3_product_user_relation.xml"/>
-    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts-integration-tests\4_add_uq_machines_table.xml"/>
+    <include file="scripts-integration-tests/1_init_db.xml"/>
+    <include file="scripts-integration-tests/2_product_tables.xml"/>
+    <include file="scripts-integration-tests/3_product_user_relation.xml"/>
+    <include file="scripts-integration-tests/4_add_uq_machines_table.xml"/>
 
 </databaseChangeLog>
