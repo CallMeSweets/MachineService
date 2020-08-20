@@ -30,7 +30,7 @@ public class OwnerController {
     }
 
     @PostMapping
-    public ResponseEntity createOwner(@RequestBody Owner owner) throws Exception {
+    public ResponseEntity createOwner(@RequestBody Owner owner) {
         ownerService.createOwner(owner);
         log.trace("New owner created, name: " + owner.getFirstName());
         return ResponseEntity.ok(HttpStatus.OK);
