@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+<changeSet author="SEGR" id="3">
+    
+    <addColumn tableName="PRODUCTS">
+        <column name="OWNER_ID" type="int">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+
+    <addUniqueConstraint tableName="PRODUCTS" columnNames="NAME, OWNER_ID" constraintName="UQ_PRODUCTS_NAME_OWNER_ID"/>
+    <addForeignKeyConstraint baseTableName="PRODUCTS" baseColumnNames="OWNER_ID" constraintName="FK_PRODUCTS_OWNER_ID" referencedTableName="OWNERS"
+                             referencedColumnNames="ID"/>
+
+
+
+<!--    DATA FOR TESTS      -->
+
+    <insert tableName="DICT_PRODUCT_TYPE">
+        <column name="ID" value="1"/>
+        <column name="NAME" value="BAR"/>
+    </insert>
+    <insert tableName="DICT_PRODUCT_TYPE">
+        <column name="ID" value="2"/>
+        <column name="NAME" value="DRINK"/>
+    </insert>
+    <insert tableName="DICT_PRODUCT_TYPE">
+        <column name="ID" value="3"/>
+        <column name="NAME" value="SNACK"/>
+    </insert>
+
+
+
+
+    <insert tableName="PRODUCTS">
+        <column name="ID" value="1"/>
+        <column name="NAME" value="SALTY STICKS"/>
+        <column name="PRODUCT_TYPE_ID" value="3"/>
+        <column name="OWNER_ID" value="1"/>
+    </insert>
+    <insert tableName="PRODUCTS">
+        <column name="ID" value="2"/>
+        <column name="NAME" value="PEPSI 0.5L"/>
+        <column name="PRODUCT_TYPE_ID" value="2"/>
+        <column name="OWNER_ID" value="1"/>
+    </insert>
+    <insert tableName="PRODUCTS">
+        <column name="ID" value="3"/>
+        <column name="NAME" value="TWIX"/>
+        <column name="PRODUCT_TYPE_ID" value="1"/>
+        <column name="OWNER_ID" value="2"/>
+    </insert>
+
+
+
+    <insert tableName="MACHINE_PRODUCTS">
+        <column name="ID" value="1"/>
+        <column name="MACHINE_ID" value="1"/>
+        <column name="PRODUCT_ID" value="1"/>
+        <column name="NUMBER_OF_PRODUCTS" value="5"/>
+    </insert>
+    <insert tableName="MACHINE_PRODUCTS">
+        <column name="ID" value="2"/>
+        <column name="MACHINE_ID" value="2"/>
+        <column name="PRODUCT_ID" value="2"/>
+        <column name="NUMBER_OF_PRODUCTS" value="5"/>
+    </insert>
+    <insert tableName="MACHINE_PRODUCTS">
+        <column name="ID" value="3"/>
+        <column name="MACHINE_ID" value="1"/>
+        <column name="PRODUCT_ID" value="2"/>
+        <column name="NUMBER_OF_PRODUCTS" value="12"/>
+    </insert>
+    <insert tableName="MACHINE_PRODUCTS">
+        <column name="ID" value="4"/>
+        <column name="MACHINE_ID" value="2"/>
+        <column name="PRODUCT_ID" value="3"/>
+        <column name="NUMBER_OF_PRODUCTS" value="15"/>
+    </insert>
+
+</changeSet>
+
+</databaseChangeLog>

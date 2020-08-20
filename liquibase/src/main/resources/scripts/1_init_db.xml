@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="SEGR" id="1">
+
+        <createTable tableName="DICT_MACHINE_TYPE">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="varchar(50)"/>
+        </createTable>
+
+        <insert tableName="DICT_MACHINE_TYPE">
+            <column name="ID" value="1"/>
+            <column name="NAME" value="DRINK"/>
+        </insert>
+        <insert tableName="DICT_MACHINE_TYPE">
+            <column name="ID" value="2"/>
+            <column name="NAME" value="FOOD"/>
+        </insert>
+        <insert tableName="DICT_MACHINE_TYPE">
+            <column name="ID" value="3"/>
+            <column name="NAME" value="TOYS"/>
+        </insert>
+
+        <createTable tableName="LOCATIONS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="city" type="varchar(50)"/>
+            <column name="street" type="varchar(50)"/>
+            <column name="street_number" type="int"/>
+            <column name="description" type="varchar(250)"/>
+        </createTable>
+
+        <insert tableName="LOCATIONS">
+            <column name="ID" value="1"/>
+            <column name="city" value="Warszawa"/>
+            <column name="street" value="Polna"/>
+            <column name="street_number" value="12"/>
+            <column name="description" value="Short description"/>
+        </insert>
+        <insert tableName="LOCATIONS">
+            <column name="ID" value="2"/>
+            <column name="city" value="Krakowa"/>
+            <column name="street" value="Twardowska"/>
+            <column name="street_number" value="15"/>
+            <column name="description" value="Short description"/>
+        </insert>
+
+        <createTable tableName="OWNERS">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstname" type="varchar(50)"/>
+            <column name="lastname" type="varchar(50)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone_number" type="varchar(9)"/>
+        </createTable>
+
+        <insert tableName="OWNERS">
+            <column name="ID" value="1"/>
+            <column name="firstname" value="Adam"/>
+            <column name="lastname" value="Kowalski"/>
+            <column name="email" value="xxx@gmail.com"/>
+            <column name="phone_number" value="123123123"/>
+        </insert>
+        <insert tableName="OWNERS">
+            <column name="ID" value="2"/>
+            <column name="firstname" value="Michal"/>
+            <column name="lastname" value="Jurek"/>
+            <column name="email" value="yyy@gmail.com"/>
+            <column name="phone_number" value="456456456"/>
+        </insert>
+
+        <createTable tableName="MACHINES">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="owner_id" type="int"/>
+            <column name="location_id" type="int"/>
+            <column name="machine_type_id" type="int"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="OWNER_ID" constraintName="FK_MACHINE_OWNER_ID" referencedTableName="OWNERS"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="MACHINE_TYPE_ID" constraintName="FK_MACHINE_DICT_MACHINE_TYPE_ID" referencedTableName="DICT_MACHINE_TYPE"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="LOCATION_ID" constraintName="FK_MACHINE_LOCATION_ID" referencedTableName="LOCATIONS"
+                                 referencedColumnNames="ID"/>
+
+        <insert tableName="MACHINES">
+            <column name="ID" value="1"/>
+            <column name="name" value="Frank Machine"/>
+            <column name="owner_id" value="1"/>
+            <column name="location_id" value="1"/>
+            <column name="machine_type_id" value="1"/>
+        </insert>
+        <insert tableName="MACHINES">
+            <column name="ID" value="2"/>
+            <column name="name" value="Donkey Machine"/>
+            <column name="owner_id" value="2"/>
+            <column name="location_id" value="2"/>
+            <column name="machine_type_id" value="3"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

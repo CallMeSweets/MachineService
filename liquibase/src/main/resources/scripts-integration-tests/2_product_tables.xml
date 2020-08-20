@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+<changeSet author="SEGR" id="2">
+    
+    <createTable tableName="DICT_PRODUCT_TYPE">
+        <column name="ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="NAME" type="varchar(50)"/>
+    </createTable>
+
+    <addUniqueConstraint tableName="DICT_PRODUCT_TYPE" columnNames="NAME" constraintName="UQ_PRODUCTS_TYPE_NAME"/>
+
+    <createTable tableName="PRODUCTS">
+        <column name="ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="NAME" type="varchar(50)"/>
+        <column name="PRODUCT_TYPE_ID" type="int"/>
+    </createTable>
+
+    <addUniqueConstraint tableName="PRODUCTS" columnNames="NAME" constraintName="UQ_PRODUCTS_NAME"/>
+
+    <createTable tableName="MACHINE_PRODUCTS">
+        <column name="ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="MACHINE_ID" type="int"/>
+        <column name="PRODUCT_ID" type="int"/>
+        <column name="NUMBER_OF_PRODUCTS" type="int" />
+    </createTable>
+
+    <addUniqueConstraint tableName="MACHINE_PRODUCTS" columnNames="MACHINE_ID, PRODUCT_ID" constraintName="UQ_MACHINE_PRODUCTS_IDS"/>
+
+    <addForeignKeyConstraint baseTableName="MACHINE_PRODUCTS" baseColumnNames="MACHINE_ID" constraintName="FK_MACHINE_PRODUCTS_MACHINE_ID" referencedTableName="MACHINES"
+                             referencedColumnNames="ID"/>
+
+    <addForeignKeyConstraint baseTableName="MACHINE_PRODUCTS" baseColumnNames="PRODUCT_ID" constraintName="FK_MACHINE_PRODUCTS_PRODUCT_ID" referencedTableName="PRODUCTS"
+                             referencedColumnNames="ID"/>
+
+
+</changeSet>
+
+</databaseChangeLog>

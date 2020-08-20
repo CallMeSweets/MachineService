@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts\1_init_db.xml"/>
+    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts\2_product_tables.xml"/>
+    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts\3_product_user_relation.xml"/>
+    <include file="C:\Users\segr\Desktop\service-machine\service-machine\liquibase\src\main\resources\scripts\4_add_uq_machines_table.xml"/>
+
+</databaseChangeLog>
