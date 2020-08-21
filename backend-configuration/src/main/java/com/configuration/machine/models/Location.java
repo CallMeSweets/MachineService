@@ -1,7 +1,6 @@
 package com.configuration.machine.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @Entity(name = "LOCATIONS")
 public class Location {
 
@@ -37,4 +35,14 @@ public class Location {
     @OneToMany(mappedBy = "location")
     private Set<Machine> machines;
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", streetNumber=" + streetNumber +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

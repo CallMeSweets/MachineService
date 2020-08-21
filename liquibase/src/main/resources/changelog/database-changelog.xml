@@ -8,9 +8,9 @@
 
 
 
-    <include file="scripts/1_init_db.xml"/>
-    <include file="scripts/2_product_tables.xml"/>
-    <include file="scripts/3_product_user_relation.xml"/>
-    <include file="scripts/4_add_uq_machines_table.xml"/>
+    <include file="src/main/resources/scripts/1_init_db.xml"/>
+    <include file="src/main/resources/scripts/2_product_tables.xml"/>
+    <include file="src/main/resources/scripts/3_product_user_relation.xml"/>
+    <include file="src/main/resources/scripts/4_add_uq_machines_table.xml"/>
 
 </databaseChangeLog>

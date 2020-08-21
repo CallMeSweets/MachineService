@@ -18,9 +18,15 @@ public class LocationService {
     @Autowired
     LocationRepository locationRepository;
 
+    @Transactional
     public List<Location> getAllLocations(){
         log.trace("inside getAllLocations method");
         return locationRepository.findAll();
+    }
+
+    public Location createLocation(Location location){
+        log.trace("inside createLocation method");
+        return locationRepository.save(location);
     }
 
 }

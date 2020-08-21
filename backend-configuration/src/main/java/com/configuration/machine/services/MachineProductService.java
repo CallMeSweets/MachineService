@@ -12,10 +12,12 @@ public class MachineProductService {
     @Autowired
     MachineProductRepository machineProductRepository;
 
-    public void deleteProductFromMachine(Long id){
+    public Boolean deleteProductFromMachine(Long id){
         log.trace("inside deleteProductFromMachine method, product id: " + id);
         machineProductRepository.deleteProductFromMachineByProductId(id);
         log.trace("product deleted from machines, product id: " + id);
+
+        return true;
     }
 
 }

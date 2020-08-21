@@ -60,7 +60,7 @@ public class OwnerControllerMockTests {
 
 
     @Test
-    void deleteOwnerById(){
+    void deleteOwnerByIdTest(){
         long id = 1;
 
         Mockito.when(ownerService.deleteOwnerById(id)).thenReturn(true);

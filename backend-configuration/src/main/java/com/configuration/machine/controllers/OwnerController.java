@@ -1,6 +1,5 @@
 package com.configuration.machine.controllers;
 
-import com.configuration.machine.dto.OwnerDTO;
 import com.configuration.machine.models.Owner;
 import com.configuration.machine.services.OwnerService;
 import lombok.extern.log4j.Log4j2;
