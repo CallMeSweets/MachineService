@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+<changeSet author="SEGR" id="5">
+
+    <createTable tableName="USERS">
+        <column name="ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="USERNAME"  type="varchar(128)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="PASSWORD" type="varchar(128)">
+        <constraints nullable="false"/>
+        </column>
+        <column name="ACCOUNT_NOT_EXPIRED" type="TINYINT" />
+        <column name="ACCOUNT_NOT_LOCKED" type="TINYINT" />
+        <column name="CREDENTIALS_NOT_EXPIRED" type="TINYINT" />
+        <column name="ENABLED" type="TINYINT" />
+    </createTable>
+
+    <createTable tableName="USERS_ROLES">
+        <column name="USERS_ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="ROLES" type="varchar(128)"/>
+    </createTable>
+
+    <addForeignKeyConstraint baseTableName="USERS_ROLES" baseColumnNames="USERS_ID" constraintName="FK_USER_ROLES_USERS" referencedTableName="USERS"
+                             referencedColumnNames="ID"/>
+
+    <insert tableName="USERS">
+        <column name="USERNAME" value="user"/>
+        <column name="PASSWORD" value="$2y$12$.FzVUCuQy1dM4JYLmS2IYeeQHpcv8oiBItQAByr.Jg7aNmPKovLhe"/>
+        <column name="ACCOUNT_NOT_EXPIRED" value="1"/>
+        <column name="ACCOUNT_NOT_LOCKED" value="1"/>
+        <column name="CREDENTIALS_NOT_EXPIRED" value="1"/>
+        <column name="enabled" value="1"/>
+    </insert>
+
+    <insert tableName="USERS">
+        <column name="USERNAME" value="admin"/>
+        <column name="PASSWORD" value="$2a$04$P38qFEDvQMI8bqQnGZkSmO0ooqWh9IFVvOc3PZQPaSnNJTFcwOdl6"/>
+        <column name="ACCOUNT_NOT_EXPIRED" value="1"/>
+        <column name="ACCOUNT_NOT_LOCKED" value="1"/>
+        <column name="CREDENTIALS_NOT_EXPIRED" value="1"/>
+        <column name="enabled" value="1"/>
+    </insert>
+
+    <insert tableName="USERS_ROLES">
+        <column name="USERS_ID" value="1"/>
+        <column name="ROLES" value="ROLE_USER"/>
+    </insert>
+
+    <insert tableName="USERS_ROLES">
+        <column name="USERS_ID" value="2"/>
+        <column name="ROLES" value="ROLE_ADMIN"/>
+    </insert>
+
+
+
+</changeSet>
+
+</databaseChangeLog>

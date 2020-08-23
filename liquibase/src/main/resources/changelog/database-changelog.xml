@@ -12,5 +12,6 @@
     <include file="src/main/resources/scripts/2_product_tables.xml"/>
     <include file="src/main/resources/scripts/3_product_user_relation.xml"/>
     <include file="src/main/resources/scripts/4_add_uq_machines_table.xml"/>
+    <include file="src/main/resources/scripts/5_users_and_authorities_table.xml"/>
 
 </databaseChangeLog>
