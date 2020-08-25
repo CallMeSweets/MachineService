@@ -1,4 +1,4 @@
-package com.configuration.machine.models;
+package com.configuration.machine.security.models;
 
 import com.configuration.machine.enums.Role;
 import lombok.Getter;

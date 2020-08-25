@@ -1,6 +1,6 @@
 package com.configuration.machine.controllers;
 
-import com.configuration.machine.models.User;
+import com.configuration.machine.security.models.User;
 import com.configuration.machine.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

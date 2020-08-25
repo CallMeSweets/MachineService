@@ -1,7 +1,7 @@
 package com.configuration.machine.dao;
 
 
-import com.configuration.machine.models.User;
+import com.configuration.machine.security.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
