@@ -13,7 +13,7 @@ public class MachineProductService {
     MachineProductRepository machineProductRepository;
 
     public Boolean deleteProductFromMachine(Long id){
-        log.trace("inside deleteProductFromMachine method, product id: " + id);
+        log.trace("delete product from machines, product id: " + id);
         machineProductRepository.deleteProductFromMachineByProductId(id);
         log.trace("product deleted from machines, product id: " + id);
 

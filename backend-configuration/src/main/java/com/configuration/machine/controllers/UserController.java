@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity createUser(@RequestBody User user){
         userService.createUser(user);
         log.trace("New product created, name: " + user.getUsername());
@@ -29,6 +29,9 @@ public class UserController {
         return ResponseEntity.ok(userService.loadUserByUsername(username));
     }
 
-
+    @GetMapping
+    public ResponseEntity getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
 
 }

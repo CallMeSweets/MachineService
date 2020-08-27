@@ -1,8 +1,7 @@
 package com.configuration.machine.security.models;
 
-import com.configuration.machine.enums.Role;
+import com.configuration.machine.security.enums.Role;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;

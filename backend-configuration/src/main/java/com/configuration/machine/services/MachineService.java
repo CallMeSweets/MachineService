@@ -22,36 +22,36 @@ public class MachineService {
     ConverterDTO converterDTO;
 
     public List<MachineLocationDTO> getAllMachines(){
-        log.trace("inside getAllMachines method");
+        log.trace("load all machines from db");
         return converterDTO.convertMachineToMachineLocationDTO(machineRepository.findAll());
     }
 
     public List<Machine> getAllMachinesWithLocations() {
-        log.trace("inside getAllMachinesWithLocations method");
+        log.trace("load all machines from db with locations");
         return machineRepository.findAll();
     }
 
     public MachineLocationDTO getMachineById(Long id) {
-        log.trace("inside getMachineById method");
+        log.trace("load machine by id");
         Machine machine = machineRepository.findById(id).get();
         log.trace("Machine founded, id: " + id);
         return converterDTO.convertMachineToMachineLocationDTO(machine);
     }
 
     public List<MachineLocationDTO> getAllOwnerMachinesByOwnerId(Long id) {
-        log.trace("inside getAllOwnerMachinesByOwnerId method");
+        log.trace("load all owner machines from db");
         List<Machine> machines = machineRepository.getAllOwnerMachinesByOwnerId(id);
         log.trace("Owner machine founded, id: " + id + " number of machines: " + machines.size());
         return converterDTO.convertMachineToMachineLocationDTO(machines);
     }
 
     public Machine createMachine(Machine machine){
-        log.trace("inside createMachine method");
+        log.trace("save new machine to db");
         return machineRepository.save(machine);
     }
 
     public Boolean deleteMachineById(Long id){
-        log.trace("inside deleteMachineById method");
+        log.trace("delete machine from db");
         machineRepository.deleteById(id);
         log.debug("Machine deleted id: " + id);
         return true;

@@ -17,19 +17,19 @@ public class ProductService {
     ProductRepository productRepository;
 
     public Product createProduct(Product product){
-        log.trace("inside createProduct method");
+        log.trace("save new product to db");
         return productRepository.save(product);
     }
 
     public Boolean deleteProductById(Long id){
-        log.debug("inside deleteProductById method");
+        log.debug("delete product from db");
         productRepository.deleteById(id);
         log.debug("Product deleted from database id: " + id);
         return true;
     }
 
     public List<Product> getAllOwnerProductsByOwnerId(Long id){
-        log.trace("inside getAllOwnerProductsByOwnerId method");
+        log.trace("get all owner product from db");
         return removeUsersProductsRelation(productRepository.getAllOwnerProductsByOwnerId(id));
     }
 

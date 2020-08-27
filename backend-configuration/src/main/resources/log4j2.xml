@@ -26,7 +26,7 @@
 
 <!--    LOGGERS     -->
     <Loggers>
-        <Logger name="com.configuration.machine" level="debug" additivity="false">
+        <Logger name="com.configuration.machine" level="trace" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
         <Logger name="com.configuration.machine" level="trace" additivity="false">
@@ -35,6 +35,7 @@
 
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
         </Root>
     </Loggers>
 </Configuration>

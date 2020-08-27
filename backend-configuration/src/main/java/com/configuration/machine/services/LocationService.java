@@ -20,12 +20,12 @@ public class LocationService {
 
     @Transactional
     public List<Location> getAllLocations(){
-        log.trace("inside getAllLocations method");
+        log.info("load location from db");
         return locationRepository.findAll();
     }
 
     public Location createLocation(Location location){
-        log.trace("inside createLocation method");
+        log.info("save new location to db");
         return locationRepository.save(location);
     }
 

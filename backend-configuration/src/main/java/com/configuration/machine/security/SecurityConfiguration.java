@@ -1,6 +1,9 @@
 package com.configuration.machine.security;
 
+import com.configuration.machine.security.enums.MatcherRoles;
+import com.configuration.machine.security.enums.Role;
 import com.configuration.machine.security.filters.JwtRequestFilter;
+import com.configuration.machine.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,21 +15,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    UserService userService;
 
     @Autowired
     JwtRequestFilter jwtRequestFilter;
@@ -41,8 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers("/owners/**").hasRole("USER")
-                .antMatchers("/actuator/**").hasRole("ADMIN")
+                .antMatchers("/users/new").permitAll()
+                .antMatchers("/owners/**").hasRole(MatcherRoles.ADMIN.getRole())
+                .antMatchers("/users/**").hasRole(MatcherRoles.ADMIN.getRole())
+                .antMatchers("/actuator/**").hasRole(MatcherRoles.ADMIN.getRole())
+                .antMatchers("/locations/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
+                .antMatchers("/machines/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
+                .antMatchers("/products/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -54,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(getPasswordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setUserDetailsService(userService);
         return  daoAuthenticationProvider;
     }
 

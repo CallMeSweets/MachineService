@@ -20,24 +20,24 @@ public class OwnerService {
     OwnerRepository ownerRepository;
 
     public List<Owner> getAllOwners(){
-        log.trace("inside getAllOwners method");
+        log.trace("load all owners from db");
         return ownerRepository.findAll();
     }
 
     public Owner createOwner(Owner owner){
-        log.trace("inside createOwner method");
+        log.trace("save new owner to db");
         return ownerRepository.save(owner);
     }
 
     public Boolean deleteOwnerById(Long id){
-        log.trace("inside deleteOwnerById method");
+        log.trace("delete owner by id from db");
         ownerRepository.deleteById(id);
         log.debug("Owner deleted id: " + id);
         return true;
     }
 
     public Owner getOwnerById(Long id) throws NoSuchElementException{
-        log.trace("inside getOwnerById method");
+        log.trace("load owner by id from db");
         Owner owner;
         try{
            owner = ownerRepository.findById(id).get();

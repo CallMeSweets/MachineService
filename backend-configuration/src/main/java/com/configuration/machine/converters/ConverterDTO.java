@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class ConverterDTO {
 
     public MachineLocationDTO convertMachineToMachineLocationDTO(Machine machine){
-        log.trace("inside convertMachineToMachineLocationDTO method");
+        log.info("machine convert to DTO machine list started");
         if(machine == null){
             log.trace("Machine is null -> not converted to MachineLocationDTO");
             return null;
@@ -21,7 +21,7 @@ public class ConverterDTO {
     }
 
     public List<MachineLocationDTO> convertMachineToMachineLocationDTO(List<Machine> machines){
-        log.trace("In convertMachineToMachineLocationDTO method");
+        log.info("list machine convert to DTO machine list started");
         if(machines == null || machines.size() == 0){
             log.trace("Machine list is null or empty.");
         }
@@ -33,7 +33,7 @@ public class ConverterDTO {
     }
 
     private MachineLocationDTO convertMachineToMachineLocDTO(Machine machine){
-        log.trace("In convertMachineToMachineLocDTO method, machineId: " + machine.getId());
+        log.trace("machine convertion to machineDTO, machineId: " + machine.getId());
         MachineLocationDTO machineLocationDTO = new MachineLocationDTO();
 
         machineLocationDTO.setName(machine.getName());
