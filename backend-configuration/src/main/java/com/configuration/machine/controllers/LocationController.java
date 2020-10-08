@@ -1,5 +1,6 @@
 package com.configuration.machine.controllers;
 
+import com.configuration.machine.dto.LocationDTO;
 import com.configuration.machine.models.Location;
 import com.configuration.machine.services.LocationService;
 import lombok.extern.log4j.Log4j2;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("/configuration/locations")
+@CrossOrigin
 @Log4j2
 public class LocationController {
 
@@ -24,10 +26,16 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity createLocation(@RequestBody Location location) {
-        Location createdLocation = locationService.createLocation(location);
-        log.trace("New location created, id: " + createdLocation.getId());
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity createLocation(@RequestBody LocationDTO locationDTO) {
+        LocationDTO createdLocationDTO = locationService.createLocation(locationDTO);
+        log.trace("New location created, id: " + createdLocationDTO.getId());
+        return ResponseEntity.ok(createdLocationDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getAllUserLocations(@PathVariable Long id) {
+        log.info("getAllUserLocations");
+        return ResponseEntity.ok(locationService.getAllUserLocationsByUserId(id));
     }
 
 }

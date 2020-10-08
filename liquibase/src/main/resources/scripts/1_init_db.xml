@@ -33,22 +33,12 @@
             <column name="street" type="varchar(50)"/>
             <column name="street_number" type="int"/>
             <column name="description" type="varchar(250)"/>
+            <column name="owner_id" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
-        <insert tableName="LOCATIONS">
-            <column name="ID" value="1"/>
-            <column name="city" value="Warszawa"/>
-            <column name="street" value="Polna"/>
-            <column name="street_number" value="12"/>
-            <column name="description" value="Short description"/>
-        </insert>
-        <insert tableName="LOCATIONS">
-            <column name="ID" value="2"/>
-            <column name="city" value="Krakowa"/>
-            <column name="street" value="Twardowska"/>
-            <column name="street_number" value="15"/>
-            <column name="description" value="Short description"/>
-        </insert>
+
 
         <createTable tableName="OWNERS">
             <column name="ID" type="int" autoIncrement="true">
@@ -73,6 +63,26 @@
             <column name="lastname" value="Jurek"/>
             <column name="email" value="yyy@gmail.com"/>
             <column name="phone_number" value="456456456"/>
+        </insert>
+
+        <addForeignKeyConstraint baseTableName="LOCATIONS" baseColumnNames="OWNER_ID" constraintName="FK_OWNER_LOCATIONS" referencedTableName="OWNERS"
+                                 referencedColumnNames="ID"/>
+
+        <insert tableName="LOCATIONS">
+            <column name="ID" value="1"/>
+            <column name="city" value="Warszawa"/>
+            <column name="street" value="Polna"/>
+            <column name="street_number" value="12"/>
+            <column name="description" value="Short description"/>
+            <column name="owner_id" value="1"/>
+        </insert>
+        <insert tableName="LOCATIONS">
+            <column name="ID" value="2"/>
+            <column name="city" value="Krakowa"/>
+            <column name="street" value="Twardowska"/>
+            <column name="street_number" value="15"/>
+            <column name="description" value="Short description"/>
+            <column name="owner_id" value="1"/>
         </insert>
 
         <createTable tableName="MACHINES">

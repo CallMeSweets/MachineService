@@ -38,20 +38,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/users/new").permitAll()
-                .antMatchers("/owners/**").hasRole(MatcherRoles.ADMIN.getRole())
-                .antMatchers("/users/**").hasRole(MatcherRoles.ADMIN.getRole())
-                .antMatchers("/actuator/**").hasRole(MatcherRoles.ADMIN.getRole())
-                .antMatchers("/locations/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
-                .antMatchers("/machines/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
-                .antMatchers("/products/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
-                .anyRequest().authenticated()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable();
+//                .authorizeRequests()
+//                .antMatchers("/authenticate").permitAll()
+//                .antMatchers("/users/new").permitAll()
+//                .antMatchers("/owners/**").hasRole(MatcherRoles.ADMIN.getRole())
+//                .antMatchers("/users/**").hasRole(MatcherRoles.ADMIN.getRole())
+//                .antMatchers("/actuator/**").hasRole(MatcherRoles.ADMIN.getRole())
+//                .antMatchers("/locations/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
+//                .antMatchers("/machines/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
+//                .antMatchers("/products/**").hasAnyRole(MatcherRoles.ADMIN.getRole(), MatcherRoles.USER.getRole())
+//                .anyRequest().authenticated()
+//                .and().sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 

@@ -31,6 +31,10 @@ public class Location {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "OWNER_ID")
+    private Owner owner;
+
     @JsonBackReference
     @OneToMany(mappedBy = "location")
     private Set<Machine> machines;
