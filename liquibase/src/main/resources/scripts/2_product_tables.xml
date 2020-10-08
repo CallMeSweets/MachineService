@@ -19,6 +19,8 @@
             <constraints primaryKey="true"/>
         </column>
         <column name="NAME" type="varchar(50)"/>
+        <column name="PRICE" type="int"/>
+        <column name="WEIGHT" type="int"/>
         <column name="PRODUCT_TYPE_ID" type="int"/>
     </createTable>
 

@@ -1,5 +1,7 @@
 package com.configuration.machine.controllers;
 
+import com.configuration.machine.converters.ConverterDTO;
+import com.configuration.machine.dto.ProductDTO;
 import com.configuration.machine.models.Product;
 import com.configuration.machine.services.MachineProductService;
 import com.configuration.machine.services.ProductService;
@@ -12,21 +14,32 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/configuration/products")
 @Log4j2
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
-
-    @Autowired
     private MachineProductService machineProductService;
 
-    @PostMapping
-    public ResponseEntity createProduct(@RequestBody Product product){
-        productService.createProduct(product);
-        log.trace("New product created, name: " + product.getName());
-        return ResponseEntity.ok(HttpStatus.OK);
+    @Autowired
+    public ProductController(ProductService productService,
+                             MachineProductService machineProductService) {
+        this.productService = productService;
+        this.machineProductService = machineProductService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity createProduct(@RequestBody ProductDTO productDTO){
+        ProductDTO createdProductDTO = productService.createProduct(productDTO);
+        log.trace("New product created, name: " + createdProductDTO.getName());
+        return ResponseEntity.ok(createdProductDTO);
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity updateProduct(@RequestBody ProductDTO productDTO){
+        ProductDTO createdProductDTO = productService.updateProduct(productDTO);
+        log.trace("New product created, name: " + createdProductDTO.getName());
+        return ResponseEntity.ok(createdProductDTO);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -38,7 +51,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/owner/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getAllOwnerProductsByOwnerId(@PathVariable Long id){
         return ResponseEntity.ok(productService.getAllOwnerProductsByOwnerId(id));
     }

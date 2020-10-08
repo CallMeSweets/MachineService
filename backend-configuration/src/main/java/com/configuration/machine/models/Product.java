@@ -19,6 +19,12 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "PRICE")
+    private Integer price;
+
+    @Column(name = "WEIGHT")
+    private Integer weight;
+
     @Column(name = "PRODUCT_TYPE_ID")
     ProductType productType;
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -39,9 +40,16 @@ public class LocationService {
 
     public LocationDTO createLocation(LocationDTO locationDTO){
         log.info("save new location to db");
-        Location location = converterDTO.convertLocationDTOToLocation(locationDTO);
+        Location location = converterDTO.convertLocationDTOToLocation(locationDTO, null);
         Owner owner = ownerRepository.findById(locationDTO.getOwnerId()).get();
         location.setOwner(owner);
+        return converterDTO.convertLocationToLocationDTO(locationRepository.save(location));
+    }
+
+    public LocationDTO updateLocation(LocationDTO locationDTO){
+        log.info("save new location to db");
+        Location location = locationRepository.findById(locationDTO.getId()).get();
+        converterDTO.convertLocationDTOToLocation(locationDTO, location);
         return converterDTO.convertLocationToLocationDTO(locationRepository.save(location));
     }
 

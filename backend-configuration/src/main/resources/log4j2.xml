@@ -26,10 +26,10 @@
 
 <!--    LOGGERS     -->
     <Loggers>
-        <Logger name="com.configuration.machine" level="trace" additivity="false">
+        <Logger name="com.configuration.machine" level="info" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.configuration.machine" level="trace" additivity="false">
+        <Logger name="com.configuration.machine" level="info" additivity="false">
             <AppenderRef ref="FileAppender" />
         </Logger>
 

@@ -25,9 +25,16 @@ public class LocationController {
         return ResponseEntity.ok(locationService.getAllLocations());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity createLocation(@RequestBody LocationDTO locationDTO) {
         LocationDTO createdLocationDTO = locationService.createLocation(locationDTO);
+        log.trace("New location created, id: " + createdLocationDTO.getId());
+        return ResponseEntity.ok(createdLocationDTO);
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity updateLocation(@RequestBody LocationDTO locationDTO) {
+        LocationDTO createdLocationDTO = locationService.updateLocation(locationDTO);
         log.trace("New location created, id: " + createdLocationDTO.getId());
         return ResponseEntity.ok(createdLocationDTO);
     }

@@ -2,8 +2,10 @@ package com.configuration.machine.converters;
 
 import com.configuration.machine.dto.LocationDTO;
 import com.configuration.machine.dto.MachineLocationDTO;
+import com.configuration.machine.dto.ProductDTO;
 import com.configuration.machine.models.Location;
 import com.configuration.machine.models.Machine;
+import com.configuration.machine.models.Product;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
@@ -75,16 +77,57 @@ public class ConverterDTO {
         return locationDTO;
     }
 
-    public Location convertLocationDTOToLocation(LocationDTO locationDTO){
+    public Location convertLocationDTOToLocation(LocationDTO locationDTO, Location location){
         log.trace("locationDTO convertion to location");
-        Location location = new Location();
+        Location locationConverted = null;
+        locationConverted = (location != null) ? location : new Location();
 
-        location.setCity(locationDTO.getCity());
-        location.setDescription(locationDTO.getDescription());
-        location.setStreet(locationDTO.getStreet());
-        location.setStreetNumber(locationDTO.getStreetNumber());
-        locationDTO.setId(null);
 
-        return location;
+        locationConverted.setCity(locationDTO.getCity());
+        locationConverted.setDescription(locationDTO.getDescription());
+        locationConverted.setStreet(locationDTO.getStreet());
+        locationConverted.setStreetNumber(locationDTO.getStreetNumber());
+
+        return locationConverted;
+    }
+
+    public Product convertDTOProductToProduct(ProductDTO productDTO, Product product){
+        log.trace("productDTO convertion to product");
+        Product productConverted = null;
+        productConverted = (product != null) ? product : new Product();
+
+        productConverted.setWeight(productDTO.getWeight());
+        productConverted.setName(productDTO.getName());
+        productConverted.setPrice(productDTO.getPrice());
+        productConverted.setProductType(productDTO.getProductType());
+
+        return productConverted;
+    }
+
+    public List<ProductDTO> convertListProductToListProductDTO(List<Product> products){
+        log.trace("list product convertion to list productDTO");
+
+
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        for(Product product: products){
+            productDTOs.add(this.convertProductToProductDTO(product));
+        }
+
+        return productDTOs;
+    }
+
+    public ProductDTO convertProductToProductDTO(Product product){
+        log.trace("product convertion to productDTO");
+
+        ProductDTO productDTO = new ProductDTO();
+
+        productDTO.setId(product.getId());
+        productDTO.setOwnerId(product.getOwner().getId());
+        productDTO.setWeight(product.getWeight());
+        productDTO.setName(product.getName());
+        productDTO.setPrice(product.getPrice());
+        productDTO.setProductType(product.getProductType());
+
+        return productDTO;
     }
 }

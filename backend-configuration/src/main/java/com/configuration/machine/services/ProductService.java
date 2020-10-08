@@ -1,6 +1,10 @@
 package com.configuration.machine.services;
 
+import com.configuration.machine.converters.ConverterDTO;
+import com.configuration.machine.dao.OwnerRepository;
 import com.configuration.machine.dao.ProductRepository;
+import com.configuration.machine.dto.ProductDTO;
+import com.configuration.machine.models.Owner;
 import com.configuration.machine.models.Product;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +17,31 @@ import java.util.stream.Collectors;
 @Log4j2
 public class ProductService {
 
-    @Autowired
-    ProductRepository productRepository;
 
-    public Product createProduct(Product product){
+    private ProductRepository productRepository;
+    private OwnerRepository ownerRepository;
+    private ConverterDTO converterDTO;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository, OwnerRepository ownerRepository, ConverterDTO converterDTO) {
+        this.productRepository = productRepository;
+        this.ownerRepository = ownerRepository;
+        this.converterDTO = converterDTO;
+    }
+
+    public ProductDTO createProduct(ProductDTO productDTO){
         log.trace("save new product to db");
-        return productRepository.save(product);
+        Product product = converterDTO.convertDTOProductToProduct(productDTO, null);
+        Owner owner = ownerRepository.findById(productDTO.getOwnerId()).get();
+        product.setOwner(owner);
+        return converterDTO.convertProductToProductDTO(productRepository.save(product));
+    }
+
+    public ProductDTO updateProduct(ProductDTO productDTO) {
+        log.trace("update product in db");
+        Product product = productRepository.findById(productDTO.getId()).get();
+        converterDTO.convertDTOProductToProduct(productDTO, product);
+        return converterDTO.convertProductToProductDTO(productRepository.save(product));
     }
 
     public Boolean deleteProductById(Long id){
@@ -28,21 +51,9 @@ public class ProductService {
         return true;
     }
 
-    public List<Product> getAllOwnerProductsByOwnerId(Long id){
+    public List<ProductDTO> getAllOwnerProductsByOwnerId(Long id){
         log.trace("get all owner product from db");
-        return removeUsersProductsRelation(productRepository.getAllOwnerProductsByOwnerId(id));
-    }
-
-    private List<Product> removeUsersProductsRelation(List<Product> products){
-        return products
-                    .stream()
-                    .map(this::removeUsersProductsRelation)
-                    .collect(Collectors.toList());
-    }
-
-    private Product removeUsersProductsRelation(Product product){
-        product.setOwner(null);
-        return product;
+        return converterDTO.convertListProductToListProductDTO(productRepository.getAllOwnerProductsByOwnerId(id));
     }
 
 }
