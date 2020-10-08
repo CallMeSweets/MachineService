@@ -56,7 +56,6 @@ export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initForm() {
-      this.actualLocation = this.data.location;
       this.locationForm.patchValue({
         city: this.data.location.city,
         street: this.data.location.street,
@@ -76,10 +75,17 @@ export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateActualLocationWithForm(){
-    this.actualLocation.street = this.locationForm.get('street').value;
-    this.actualLocation.city = this.locationForm.get('city').value;
-    this.actualLocation.streetNumber = this.locationForm.get('flatNumber').value;
-    this.actualLocation.description = this.locationForm.get('description').value;
+    this.actualLocation = {
+      id: null,
+      street: this.locationForm.get('street').value,
+      city: this.locationForm.get('city').value,
+      streetNumber: this.locationForm.get('flatNumber').value,
+      description: this.locationForm.get('description').value,
+      ownerId: 1
+    }
+    if(this.data.location){
+      this.actualLocation.id = this.data.location.id;
+    }
   }
 
   hasError(controlName: string, errorName: string) {

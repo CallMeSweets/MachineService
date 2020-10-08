@@ -19,7 +19,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
   dataSource: MatTableDataSource<Location>;
   selection = new SelectionModel<Location>(true, []);
 
-  locationToUpdate: Location;
+  currentlyModifiedLocation: Location;
   isDeleteButtonDisabled = true;
   subscriptions$: { [key: string]: Subscription } = {};
 
@@ -93,13 +93,19 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
       disableClose: true
     });
 
-    this.subscriptions$['dialogRefNewLocation'] = dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    this.subscriptions$['dialogRefNewLocation'] = dialogRef.afterClosed().subscribe(location => {
+      if(location) {
+        this.locationService.addNewLocationForUser(location).subscribe(newLocation => {
+          const data = this.dataSource.data;
+          data.push(newLocation);
+          this.dataSource.data = data;
+        });
+      }
     });
   }
 
   onEditLocationClick(location: Location) {
-    this.locationToUpdate = location;
+    this.currentlyModifiedLocation = location;
     const dialogRef = this.dialog.open(EditCreateComponent, {
       data: {
         formType: 'EDIT LOCATION',
@@ -110,9 +116,12 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
 
     this.subscriptions$['dialogRefEditLocation'] = dialogRef.afterClosed().subscribe(result => {
       const data = this.dataSource.data;
-      const index = data.indexOf(this.locationToUpdate);
-      data[index] = result;
-      this.dataSource.data = data;
+      const index = data.indexOf(this.currentlyModifiedLocation);
+      this.locationService.updateLocationForUser(result).subscribe(location => {
+        data[index] = location;
+        this.dataSource.data = data;
+      });
+
     });
   }
 

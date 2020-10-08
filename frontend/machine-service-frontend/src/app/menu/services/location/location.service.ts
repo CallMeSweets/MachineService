@@ -13,4 +13,12 @@ export class LocationService {
   public getAllUserLocations(id: number): Observable<Location[]> {
     return this.httpClient.get<Location[]>('http://localhost:8082/configuration/locations/1');
   }
+
+  public addNewLocationForUser(location: Location): Observable<Location> {
+    return this.httpClient.post<Location>('http://localhost:8082/configuration/locations/create', location);
+  }
+
+  public updateLocationForUser(location: Location): Observable<Location> {
+    return this.httpClient.patch<Location>('http://localhost:8082/configuration/locations/update', location);
+  }
 }
