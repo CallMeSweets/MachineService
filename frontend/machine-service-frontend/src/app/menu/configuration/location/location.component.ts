@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {ErrorStateMatcher, MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {LocationService} from '../../services/location/location.service';
 import {Location} from '../../models/Location';
 import {EditCreateComponent} from './edit-create/edit-create.component';
@@ -39,12 +39,19 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.subscriptions$['locationServiceFetch'] = this.locationService.getAllUserLocations(1).subscribe(value => {
+    this.subscriptions$.locationServiceFetch = this.locationService.getAllUserLocations(1).subscribe(value => {
         this.dataSource = new MatTableDataSource<Location>(value);
       },
       error => {
         console.log(error);
       });
+
+    this.selection.changed.subscribe(() => {
+      (this.selection.selected.length > 0) ?
+        this.isDeleteButtonDisabled = false :
+        this.isDeleteButtonDisabled = true;
+
+    });
   }
 
 
@@ -61,40 +68,21 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
-      this.clearSelectionAndBlockDeleteButton() :
-      this.selectAndUnblockDelete();
-
-  }
-
-  private selectAndUnblockDelete() {
-    this.dataSource.data.forEach(row => this.selection.select(row));
-    this.isDeleteButtonDisabled = !this.isDeleteButtonDisabled;
-  }
-
-
-  private clearSelectionAndBlockDeleteButton() {
-    this.selection.clear();
-    this.isDeleteButtonDisabled = !this.isDeleteButtonDisabled;
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Location): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    // return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   onNewLocationClick() {
     const dialogRef = this.dialog.open(EditCreateComponent, {
       data: {
-        formType: 'NEW LOCATION'
+        formType: 'NEW LOCATION',
+        confirmButton: 'ADD'
       },
       disableClose: true
     });
 
-    this.subscriptions$['dialogRefNewLocation'] = dialogRef.afterClosed().subscribe(location => {
-      if(location) {
+    this.subscriptions$.dialogRefNewLocation = dialogRef.afterClosed().subscribe(location => {
+      if (location) {
         this.locationService.addNewLocationForUser(location).subscribe(newLocation => {
           const data = this.dataSource.data;
           data.push(newLocation);
@@ -109,19 +97,32 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
     const dialogRef = this.dialog.open(EditCreateComponent, {
       data: {
         formType: 'EDIT LOCATION',
+        confirmButton: 'SAVE',
         location
       },
       disableClose: true
     });
 
-    this.subscriptions$['dialogRefEditLocation'] = dialogRef.afterClosed().subscribe(result => {
+    this.subscriptions$.dialogRefEditLocation = dialogRef.afterClosed().subscribe(location => {
       const data = this.dataSource.data;
       const index = data.indexOf(this.currentlyModifiedLocation);
-      this.locationService.updateLocationForUser(result).subscribe(location => {
-        data[index] = location;
+      this.locationService.updateLocationForUser(location).subscribe(updatedLocation => {
+        data[index] = updatedLocation;
         this.dataSource.data = data;
       });
 
+    });
+  }
+
+  onDeleteProductClick() {
+    this.subscriptions$.dialogRefDeleteLocation = this.locationService.deleteUserSelectedLocations(this.selection.selected).subscribe(() => {
+      const data = this.dataSource.data;
+      this.selection.selected.forEach((location) => {
+        data.splice(data.indexOf(location), 1);
+      });
+
+      this.dataSource.data = data;
+      this.selection.clear();
     });
   }
 

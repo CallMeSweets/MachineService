@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Location} from '../../../models/Location';
 import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
@@ -12,8 +12,6 @@ import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/materia
 })
 export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @Output()
-  locationEmitter = new EventEmitter<Location>();
 
   locationMatcher = new LocationMatcher();
   actualLocation: Location;
@@ -82,7 +80,7 @@ export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       streetNumber: this.locationForm.get('flatNumber').value,
       description: this.locationForm.get('description').value,
       ownerId: 1
-    }
+    };
     if(this.data.location){
       this.actualLocation.id = this.data.location.id;
     }
@@ -104,6 +102,7 @@ export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
 export interface DialogData {
   formType: 'NEW LOCATION' | 'EDIT LOCATION';
+  confirmButton: 'SAVE' | 'ADD';
   location: Location;
 }
 

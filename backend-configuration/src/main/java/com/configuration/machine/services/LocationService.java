@@ -46,6 +46,12 @@ public class LocationService {
         return converterDTO.convertLocationToLocationDTO(locationRepository.save(location));
     }
 
+    public void deleteLocations(List<LocationDTO> locationDTOs) {
+        locationDTOs.forEach(locationDTO -> {
+            locationRepository.deleteById(locationDTO.getId());
+        });
+    }
+
     public LocationDTO updateLocation(LocationDTO locationDTO){
         log.info("save new location to db");
         Location location = locationRepository.findById(locationDTO.getId()).get();

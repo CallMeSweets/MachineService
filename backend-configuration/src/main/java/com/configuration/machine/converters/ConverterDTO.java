@@ -91,6 +91,18 @@ public class ConverterDTO {
         return locationConverted;
     }
 
+    public List<Product> convertListProductDTOToListProduct(List<ProductDTO> productDTOs){
+        log.trace("list product convertion to list productDTO");
+
+
+        List<Product> products = new ArrayList<>();
+        for(ProductDTO productDTO: productDTOs){
+            products.add(this.convertDTOProductToProduct(productDTO, null));
+        }
+
+        return products;
+    }
+
     public Product convertDTOProductToProduct(ProductDTO productDTO, Product product){
         log.trace("productDTO convertion to product");
         Product productConverted = null;

@@ -13,9 +13,11 @@ import {
 } from '@angular/material';
 import {FlexModule} from '@angular/flex-layout';
 import { LocationComponent } from './configuration/location/location.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { EditCreateComponent } from './configuration/location/edit-create/edit-create.component';
 import {OnlyNumberDirective} from './directives/OnlyNumber';
+import { EditCreateProductComponent } from './configuration/product/edit-create-product/edit-create-product.component';
+import {ProductComponent} from './configuration/product/product.component';
 
 
 
@@ -23,8 +25,10 @@ import {OnlyNumberDirective} from './directives/OnlyNumber';
   declarations: [
     SupportComponent,
     LocationComponent,
+    ProductComponent,
     EditCreateComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    EditCreateProductComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +52,8 @@ import {OnlyNumberDirective} from './directives/OnlyNumber';
     SupportComponent
   ],
   bootstrap: [SupportComponent],
-  entryComponents: [EditCreateComponent],
+  entryComponents: [EditCreateComponent,
+                    EditCreateProductComponent],
   providers: [MatDialog,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }]

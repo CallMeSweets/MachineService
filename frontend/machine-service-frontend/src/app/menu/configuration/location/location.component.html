@@ -13,17 +13,14 @@
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null"
                         [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
             ALL
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row" (click)="selection.toggle(row)">
           <mat-checkbox (click)="$event.stopPropagation()"
                         (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)"
-                        [aria-label]="checkboxLabel(row)"
-                        >
+                        [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </td>
       </ng-container>
@@ -81,7 +78,7 @@
     <button mat-raised-button fxFlex="15" class="save_button">
       SAVE
     </button>
-    <button mat-raised-button color="warn" fxFlex="15" style="margin-left: 10%" [disabled]="isDeleteButtonDisabled">
+    <button mat-raised-button color="warn" fxFlex="15" style="margin-left: 10%" (click)="onDeleteProductClick()" [disabled]="isDeleteButtonDisabled">
       DELETE
     </button>
   </div>

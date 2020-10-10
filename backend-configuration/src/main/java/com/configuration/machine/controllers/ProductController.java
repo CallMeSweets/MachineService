@@ -12,10 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/configuration/products")
 @Log4j2
+@CrossOrigin
 public class ProductController {
 
     private ProductService productService;
@@ -42,11 +45,11 @@ public class ProductController {
         return ResponseEntity.ok(createdProductDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete")
     @Transactional
-    public ResponseEntity deleteProductById(@PathVariable Long id){
-        machineProductService.deleteProductFromMachine(id);
-        productService.deleteProductById(id);
+    public ResponseEntity deleteProducts(@RequestBody List<ProductDTO> productDTOs){
+        machineProductService.deleteProductFromMachine(productDTOs);
+        productService.deleteProducts(productDTOs);
         return ResponseEntity.ok(HttpStatus.OK);
 
     }

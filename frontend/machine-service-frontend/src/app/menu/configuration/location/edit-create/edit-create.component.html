@@ -13,7 +13,7 @@
       <mat-label>street</mat-label>
       <input matInput type="text" formControlName="street" [errorStateMatcher]="locationMatcher" required/>
       <mat-error *ngIf="hasError('street', 'required')">required</mat-error>
-      <mat-error *ngIf="hasError('city', 'maxlength')">too long</mat-error>
+      <mat-error *ngIf="hasError('street', 'maxlength')">too long</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>flat number</mat-label>
@@ -26,12 +26,12 @@
       <mat-label>description</mat-label>
       <input matInput type="text" formControlName="description" [errorStateMatcher]="locationMatcher" required/>
       <mat-error *ngIf="hasError('description', 'required')">required</mat-error>
-      <mat-error *ngIf="hasError('city', 'maxlength')">too long</mat-error>
+      <mat-error *ngIf="hasError('description', 'maxlength')">too long</mat-error>
     </mat-form-field>
 
   <div fxFlex fxLayoutAlign="center" fxLayout="row" class="button-style">
     <button mat-raised-button fxFlex="30" class="save_button" [disabled]="isSaveButtonDisabled$" (click)="onSave() ">
-      SAVE
+      {{data.confirmButton}}
     </button>
     <button mat-raised-button color="warn" fxFlex="30" style="margin-left: 10%" (click)="onCancel()">
       CANCEL

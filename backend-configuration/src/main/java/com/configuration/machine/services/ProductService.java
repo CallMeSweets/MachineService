@@ -44,10 +44,13 @@ public class ProductService {
         return converterDTO.convertProductToProductDTO(productRepository.save(product));
     }
 
-    public Boolean deleteProductById(Long id){
+    public Boolean deleteProducts(List<ProductDTO> productDTOs){
         log.debug("delete product from db");
-        productRepository.deleteById(id);
-        log.debug("Product deleted from database id: " + id);
+        productDTOs.forEach(productDTO -> {
+            productRepository.deleteById(productDTO.getId());
+        });
+
+        log.debug("Products deleted from database, number: " + productDTOs.size());
         return true;
     }
 

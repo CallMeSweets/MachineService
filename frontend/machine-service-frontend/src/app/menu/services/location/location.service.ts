@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Location} from '../../models/Location';
 import {HttpClient} from '@angular/common/http';
+import {Product} from '../../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,13 @@ export class LocationService {
 
   public updateLocationForUser(location: Location): Observable<Location> {
     return this.httpClient.patch<Location>('http://localhost:8082/configuration/locations/update', location);
+  }
+
+  public deleteUserLocationByid(id: number): Observable<Product[]> {
+    return this.httpClient.get<Product[]>('http://localhost:8082/configuration/locations/delete/${id}');
+  }
+
+  public deleteUserSelectedLocations(locations: Location[]) {
+    return this.httpClient.post<Location[]>('http://localhost:8082/configuration/locations/delete', locations);
   }
 }

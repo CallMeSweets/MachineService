@@ -32,6 +32,13 @@ public class LocationController {
         return ResponseEntity.ok(createdLocationDTO);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity deleteLocations(@RequestBody List<LocationDTO> locationDTOs) {
+        locationService.deleteLocations(locationDTOs);
+        log.trace("locations deleted, number: " + locationDTOs.size());
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
     @PatchMapping("/update")
     public ResponseEntity updateLocation(@RequestBody LocationDTO locationDTO) {
         LocationDTO createdLocationDTO = locationService.updateLocation(locationDTO);
