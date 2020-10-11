@@ -14,10 +14,11 @@ import {
 import {FlexModule} from '@angular/flex-layout';
 import { LocationComponent } from './configuration/location/location.component';
 import { HttpClientModule} from '@angular/common/http';
-import { EditCreateComponent } from './configuration/location/edit-create/edit-create.component';
+import { EditCreateLocationComponent } from './configuration/location/edit-create/edit-create-location.component';
 import {OnlyNumberDirective} from './directives/OnlyNumber';
 import { EditCreateProductComponent } from './configuration/product/edit-create-product/edit-create-product.component';
 import {ProductComponent} from './configuration/product/product.component';
+import { ConfirmDialogWindowComponent } from './shared/confirm-dialog-window/confirm-dialog-window.component';
 
 
 
@@ -26,9 +27,10 @@ import {ProductComponent} from './configuration/product/product.component';
     SupportComponent,
     LocationComponent,
     ProductComponent,
-    EditCreateComponent,
+    EditCreateLocationComponent,
     OnlyNumberDirective,
-    EditCreateProductComponent
+    EditCreateProductComponent,
+    ConfirmDialogWindowComponent
   ],
   imports: [
     CommonModule,
@@ -52,8 +54,9 @@ import {ProductComponent} from './configuration/product/product.component';
     SupportComponent
   ],
   bootstrap: [SupportComponent],
-  entryComponents: [EditCreateComponent,
-                    EditCreateProductComponent],
+  entryComponents: [EditCreateLocationComponent,
+                    EditCreateProductComponent,
+                    ConfirmDialogWindowComponent],
   providers: [MatDialog,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }]

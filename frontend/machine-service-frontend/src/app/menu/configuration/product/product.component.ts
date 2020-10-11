@@ -5,6 +5,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Subscription} from 'rxjs';
 import {ProductService} from '../../services/product/product.service';
 import {EditCreateProductComponent} from './edit-create-product/edit-create-product.component';
+import {ConfirmDialogWindowComponent} from '../../shared/confirm-dialog-window/confirm-dialog-window.component';
 
 @Component({
   selector: 'app-product',
@@ -95,6 +96,21 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductClick() {
+    const dialogRef = this.dialog.open(ConfirmDialogWindowComponent, {
+      data: {
+        message: 'Are you sure you want to delete this products?'
+      },
+      disableClose: true
+    });
+
+    this.subscriptions$.dialogRefDeleteConfirmWindow = dialogRef.afterClosed().subscribe((shouldBeDeleted) => {
+      if(shouldBeDeleted) {
+        this.deleteProduct();
+      }
+    });
+  }
+
+  private deleteProduct(): void{
     this.subscriptions$.dialogRefDeleteLocation = this.productService.deleteUserSelectedProducts(this.selection.selected).subscribe(() => {
       const data = this.dataSource.data;
       this.selection.selected.forEach((product) => {

@@ -1,8 +1,11 @@
 
 <div fxFlex fxLayoutAlign="center" fxLayout="column">
-  <div fxFlex fxLayoutAlign="flex-end" fxLayout="row" >
+  <div fxFlex fxLayoutAlign="space-between" fxLayout="row" >
     <button mat-raised-button fxFlex="15" class="new_location_button" (click)="onNewLocationClick()">
       NEW LOCATION
+    </button>
+    <button mat-raised-button color="warn" fxFlex="15" class="delete_button" (click)="onDeleteLocationClick()" [disabled]="isDeleteButtonDisabled">
+      DELETE
     </button>
   </div>
   <div class="mat-elevation-z8">
@@ -66,21 +69,11 @@
           </button>
         </td>
       </ng-container>
-
-
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;">
       </tr>
     </table>
     <mat-paginator [pageSizeOptions]="[10, 20, 5]" showFirstLastButtons></mat-paginator>
-  </div>
-  <div fxFlex fxLayoutAlign="center" fxLayout="row" class="button-style">
-    <button mat-raised-button fxFlex="15" class="save_button">
-      SAVE
-    </button>
-    <button mat-raised-button color="warn" fxFlex="15" style="margin-left: 10%" (click)="onDeleteProductClick()" [disabled]="isDeleteButtonDisabled">
-      DELETE
-    </button>
   </div>
 </div>
 

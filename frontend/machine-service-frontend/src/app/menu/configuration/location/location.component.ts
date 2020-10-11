@@ -3,8 +3,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {LocationService} from '../../services/location/location.service';
 import {Location} from '../../models/Location';
-import {EditCreateComponent} from './edit-create/edit-create.component';
+import {EditCreateLocationComponent} from './edit-create/edit-create-location.component';
 import {Subscription} from 'rxjs';
+import {ConfirmDialogWindowComponent} from '../../shared/confirm-dialog-window/confirm-dialog-window.component';
 
 
 
@@ -73,7 +74,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onNewLocationClick() {
-    const dialogRef = this.dialog.open(EditCreateComponent, {
+    const dialogRef = this.dialog.open(EditCreateLocationComponent, {
       data: {
         formType: 'NEW LOCATION',
         confirmButton: 'ADD'
@@ -94,7 +95,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
 
   onEditLocationClick(location: Location) {
     this.currentlyModifiedLocation = location;
-    const dialogRef = this.dialog.open(EditCreateComponent, {
+    const dialogRef = this.dialog.open(EditCreateLocationComponent, {
       data: {
         formType: 'EDIT LOCATION',
         confirmButton: 'SAVE',
@@ -114,7 +115,22 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onDeleteProductClick() {
+  onDeleteLocationClick() {
+    const dialogRef = this.dialog.open(ConfirmDialogWindowComponent, {
+      data: {
+        message: 'Are you sure you want to delete this locations?'
+      },
+      disableClose: true
+    });
+
+    this.subscriptions$.dialogRefDeleteConfirmWindow = dialogRef.afterClosed().subscribe((shouldBeDeleted) => {
+      if(shouldBeDeleted) {
+        this.deleteLocation();
+      }
+    });
+  }
+
+  private deleteLocation(): void{
     this.subscriptions$.dialogRefDeleteLocation = this.locationService.deleteUserSelectedLocations(this.selection.selected).subscribe(() => {
       const data = this.dataSource.data;
       this.selection.selected.forEach((location) => {

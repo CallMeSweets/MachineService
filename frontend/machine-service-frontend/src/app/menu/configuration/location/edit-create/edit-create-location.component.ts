@@ -7,10 +7,10 @@ import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/materia
 
 @Component({
   selector: 'app-edit-create',
-  templateUrl: './edit-create.component.html',
-  styleUrls: ['./edit-create.component.scss']
+  templateUrl: './edit-create-location.component.html',
+  styleUrls: ['./edit-create-location.component.scss']
 })
-export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EditCreateLocationComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   locationMatcher = new LocationMatcher();
@@ -21,7 +21,7 @@ export class EditCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              public dialogRef: MatDialogRef<EditCreateComponent>) { }
+              public dialogRef: MatDialogRef<EditCreateLocationComponent>) { }
 
   ngOnInit() {
     this.locationForm = this.formBuilder.group({
