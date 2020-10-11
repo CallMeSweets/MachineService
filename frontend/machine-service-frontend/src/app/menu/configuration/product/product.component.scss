@@ -1,0 +1,46 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.button-style{
+  button {
+    margin-top: 50px;
+  }
+}
+
+.save_button{
+  margin-right: 10%;
+  background: #ffd311;
+}
+
+.edit_button {
+  background: #53ff17;
+  width: 120px;
+}
+
+.new_location_button {
+  margin-bottom: 20px;
+  background: #ffd311;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+.tabel-format{
+  th.mat-header-cell {
+    text-align: center;
+  }
+
+  td.mat-cell {
+    text-align: center;
+  }
+
+  input {
+    border: none !important;
+    outline: none !important;
+    text-align: center;
+  }
+
+}
