@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/MachineService.iml" filepath="$PROJECT_DIR$/.idea/MachineService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend-configuration/backend-configuration.iml" filepath="$PROJECT_DIR$/backend-configuration/backend-configuration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/liquibase/liquibase.iml" filepath="$PROJECT_DIR$/liquibase/liquibase.iml" />
+    </modules>
+  </component>
+</project>

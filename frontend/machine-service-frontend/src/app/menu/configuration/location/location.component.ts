@@ -5,7 +5,7 @@ import {LocationService} from '../../services/location/location.service';
 import {Location} from '../../models/Location';
 import {EditCreateLocationComponent} from './edit-create/edit-create-location.component';
 import {Subscription} from 'rxjs';
-import {ConfirmDialogWindowComponent} from '../../shared/confirm-dialog-window/confirm-dialog-window.component';
+import {ConfirmService} from '../../services/confirm/confirm.service';
 
 
 
@@ -35,6 +35,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
   }
 
   constructor(private locationService: LocationService,
+              private confirmService: ConfirmService,
               private dialog: MatDialog) {
   }
 
@@ -116,14 +117,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDeleteLocationClick() {
-    const dialogRef = this.dialog.open(ConfirmDialogWindowComponent, {
-      data: {
-        message: 'Are you sure you want to delete this locations?'
-      },
-      disableClose: true
-    });
-
-    this.subscriptions$.dialogRefDeleteConfirmWindow = dialogRef.afterClosed().subscribe((shouldBeDeleted) => {
+    this.confirmService.showConfirmWindow('Are you sure you want to delete this locations?').subscribe((shouldBeDeleted) => {
       if(shouldBeDeleted) {
         this.deleteLocation();
       }

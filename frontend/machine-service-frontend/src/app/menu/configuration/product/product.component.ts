@@ -5,7 +5,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Subscription} from 'rxjs';
 import {ProductService} from '../../services/product/product.service';
 import {EditCreateProductComponent} from './edit-create-product/edit-create-product.component';
-import {ConfirmDialogWindowComponent} from '../../shared/confirm-dialog-window/confirm-dialog-window.component';
+import {ConfirmService} from '../../services/confirm/confirm.service';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +21,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   currentlyModifiedProduct: Product;
 
   constructor(private productService: ProductService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private confirmService: ConfirmService) { }
 
   ngOnInit() {
     this.subscriptions$.productServiceFetch = this.productService.getAllUserProducts(1).subscribe(products => {
@@ -96,21 +97,14 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductClick() {
-    const dialogRef = this.dialog.open(ConfirmDialogWindowComponent, {
-      data: {
-        message: 'Are you sure you want to delete this products?'
-      },
-      disableClose: true
-    });
-
-    this.subscriptions$.dialogRefDeleteConfirmWindow = dialogRef.afterClosed().subscribe((shouldBeDeleted) => {
+    this.confirmService.showConfirmWindow('Are you sure you want to delete this product?').subscribe((shouldBeDeleted) => {
       if(shouldBeDeleted) {
         this.deleteProduct();
       }
     });
   }
 
-  private deleteProduct(): void{
+  private deleteProduct(): void {
     this.subscriptions$.dialogRefDeleteLocation = this.productService.deleteUserSelectedProducts(this.selection.selected).subscribe(() => {
       const data = this.dataSource.data;
       this.selection.selected.forEach((product) => {
