@@ -41,9 +41,9 @@ public class LocationController {
 
     @PatchMapping("/update")
     public ResponseEntity updateLocation(@RequestBody LocationDTO locationDTO) {
-        LocationDTO createdLocationDTO = locationService.updateLocation(locationDTO);
-        log.trace("New location created, id: " + createdLocationDTO.getId());
-        return ResponseEntity.ok(createdLocationDTO);
+        LocationDTO updatedLocationDTO = locationService.updateLocation(locationDTO);
+        log.trace("location updated, id: " + updatedLocationDTO.getId());
+        return ResponseEntity.ok(updatedLocationDTO);
     }
 
     @GetMapping("/{id}")

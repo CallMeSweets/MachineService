@@ -40,9 +40,9 @@ public class ProductController {
 
     @PatchMapping("/update")
     public ResponseEntity updateProduct(@RequestBody ProductDTO productDTO){
-        ProductDTO createdProductDTO = productService.updateProduct(productDTO);
-        log.trace("New product created, name: " + createdProductDTO.getName());
-        return ResponseEntity.ok(createdProductDTO);
+        ProductDTO updatedProductDTO = productService.updateProduct(productDTO);
+        log.trace("product updated, name: " + updatedProductDTO.getName());
+        return ResponseEntity.ok(updatedProductDTO);
     }
 
     @PostMapping("/delete")

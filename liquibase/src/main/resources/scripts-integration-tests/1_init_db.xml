@@ -87,8 +87,6 @@
 
     <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="OWNER_ID" constraintName="FK_MACHINE_OWNER_ID" referencedTableName="OWNERS"
                              referencedColumnNames="ID"/>
-    <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="MACHINE_TYPE_ID" constraintName="FK_MACHINE_DICT_MACHINE_TYPE_ID" referencedTableName="DICT_MACHINE_TYPE"
-                             referencedColumnNames="ID"/>
     <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="LOCATION_ID" constraintName="FK_MACHINE_LOCATION_ID" referencedTableName="LOCATIONS"
                              referencedColumnNames="ID"/>
 

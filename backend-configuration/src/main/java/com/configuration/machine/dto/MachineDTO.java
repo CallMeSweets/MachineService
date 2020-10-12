@@ -1,6 +1,5 @@
 package com.configuration.machine.dto;
 
-import com.configuration.machine.enums.MachineType;
 import com.configuration.machine.models.Location;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +11,14 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class MachineLocationDTO {
+public class MachineDTO {
 
+    private Long id;
     private String name;
-
-    private MachineType machineType;
-
-    private Location locations;
+    private Long ownerId;
+    private Long locationId;
+    private Integer numProductSpace;
+    private String machineType;
+    private String description;
 
 }

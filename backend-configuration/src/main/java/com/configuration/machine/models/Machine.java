@@ -1,9 +1,8 @@
 package com.configuration.machine.models;
 
-import com.configuration.machine.enums.MachineType;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,8 +36,14 @@ public class Machine {
     @JoinColumn(name = "OWNER_ID")
     private Owner owner;
 
-    @Column(name = "MACHINE_TYPE_ID")
-    private MachineType machineType;
+    @Column(name = "NUM_PRODUCT_SPACE")
+    private Integer numProductSpace;
+
+    @Column(name = "MACHINE_TYPE")
+    private String machineType;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @JsonBackReference
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)

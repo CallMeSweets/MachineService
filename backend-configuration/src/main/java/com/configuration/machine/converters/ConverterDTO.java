@@ -1,7 +1,7 @@
 package com.configuration.machine.converters;
 
 import com.configuration.machine.dto.LocationDTO;
-import com.configuration.machine.dto.MachineLocationDTO;
+import com.configuration.machine.dto.MachineDTO;
 import com.configuration.machine.dto.ProductDTO;
 import com.configuration.machine.models.Location;
 import com.configuration.machine.models.Machine;
@@ -15,17 +15,37 @@ import java.util.stream.Collectors;
 @Log4j2
 public class ConverterDTO {
 
-    public MachineLocationDTO convertMachineToMachineLocationDTO(Machine machine){
-        log.info("machine convert to DTO machine list started");
-        if(machine == null){
-            log.trace("Machine is null -> not converted to MachineLocationDTO");
-            return null;
+    public List<Machine> convertListMachineDTOToListMachine(List<MachineDTO> machineDTOS){
+        log.info("list machine convert to DTO machine list started");
+        if(machineDTOS == null || machineDTOS.size() == 0){
+            log.warn("Machine list is null or empty.");
         }
-        log.trace("machine ID: " + machine.getId() + " converted to MachineLocationDTO" );
-        return convertMachineToMachineLocDTO(machine);
+
+        List<Machine> machines = new ArrayList<>();
+
+        machineDTOS.forEach((machineDTO -> {
+            machines.add(this.convertMachineDTOToMachine(machineDTO, null));
+        }));
+
+        return machines;
     }
 
-    public List<MachineLocationDTO> convertMachineToMachineLocationDTO(List<Machine> machines){
+    public  Machine convertMachineDTOToMachine(MachineDTO machineDTO, Machine machine) {
+        log.trace("machine convertion to machineDTO, machineId: " + machineDTO.getId());
+        Machine machineConverted = null;
+        machineConverted = (machine != null) ? machine : new Machine();
+
+        machineConverted.setName(machineDTO.getName());
+        machineConverted.setMachineType(machineDTO.getMachineType());
+        machineConverted.setDescription(machineDTO.getDescription());
+        machineConverted.setNumProductSpace(machineDTO.getNumProductSpace());
+
+        log.trace("MachineDTO converted to Machine, machineId: ", machineConverted.getName());
+
+        return machineConverted;
+    }
+
+    public List<MachineDTO> convertListMachineToListMachineDTO(List<Machine> machines){
         log.info("list machine convert to DTO machine list started");
         if(machines == null || machines.size() == 0){
             log.trace("Machine list is null or empty.");
@@ -33,25 +53,32 @@ public class ConverterDTO {
 
         return machines
                 .stream()
-                .map(this::convertMachineToMachineLocDTO)
+                .map(this::convertMachineToMachineDTO)
                 .collect(Collectors.toList());
     }
 
-    private MachineLocationDTO convertMachineToMachineLocDTO(Machine machine){
+    public MachineDTO convertMachineToMachineDTO(Machine machine){
         log.trace("machine convertion to machineDTO, machineId: " + machine.getId());
-        MachineLocationDTO machineLocationDTO = new MachineLocationDTO();
+        MachineDTO machineDTO = new MachineDTO();
 
-        machineLocationDTO.setName(machine.getName());
-        machineLocationDTO.setMachineType(machine.getMachineType());
-        machineLocationDTO.setLocations(machine.getLocation());
+        machineDTO.setId(machine.getId());
+        machineDTO.setName(machine.getName());
+        machineDTO.setMachineType(machine.getMachineType());
+        machineDTO.setDescription(machine.getDescription());
+        machineDTO.setNumProductSpace(machine.getNumProductSpace());
+        machineDTO.setLocationId(machine.getLocation().getId());
+        machineDTO.setOwnerId(machine.getOwner().getId());
 
-        log.trace("Machine converted to MachineLocationDTO, machineId: ", machine.getId());
+        log.trace("Machine converted to MachineDTO, machineId: ", machine.getId());
 
-        return machineLocationDTO;
+        return machineDTO;
     }
 
     public List<LocationDTO> convertListLocationToListLocationDTO(List<Location> locations){
         log.trace("list location convertion to list locationDTO");
+        if(locations == null || locations.size() == 0){
+            log.warn("Location list is null or empty.");
+        }
 
         List<LocationDTO> locationDTOs = new ArrayList<>();
         for(Location location: locations){
@@ -93,7 +120,9 @@ public class ConverterDTO {
 
     public List<Product> convertListProductDTOToListProduct(List<ProductDTO> productDTOs){
         log.trace("list product convertion to list productDTO");
-
+        if(productDTOs == null || productDTOs.size() == 0){
+            log.warn("ProductDTO list is null or empty.");
+        }
 
         List<Product> products = new ArrayList<>();
         for(ProductDTO productDTO: productDTOs){
@@ -118,7 +147,9 @@ public class ConverterDTO {
 
     public List<ProductDTO> convertListProductToListProductDTO(List<Product> products){
         log.trace("list product convertion to list productDTO");
-
+        if(products == null || products.size() == 0){
+            log.warn("Product list is null or empty.");
+        }
 
         List<ProductDTO> productDTOs = new ArrayList<>();
         for(Product product: products){

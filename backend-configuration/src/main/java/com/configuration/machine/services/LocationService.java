@@ -53,7 +53,7 @@ public class LocationService {
     }
 
     public LocationDTO updateLocation(LocationDTO locationDTO){
-        log.info("save new location to db");
+        log.info("update location in db");
         Location location = locationRepository.findById(locationDTO.getId()).get();
         converterDTO.convertLocationDTOToLocation(locationDTO, location);
         return converterDTO.convertLocationToLocationDTO(locationRepository.save(location));

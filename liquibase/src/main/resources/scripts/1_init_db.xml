@@ -92,12 +92,12 @@
             <column name="name" type="varchar(50)"/>
             <column name="owner_id" type="int"/>
             <column name="location_id" type="int"/>
-            <column name="machine_type_id" type="int"/>
+            <column name="num_product_space" type="int"/>
+            <column name="machine_type" type="varchar(20)"/>
+            <column name="description" type="varchar(20)"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="OWNER_ID" constraintName="FK_MACHINE_OWNER_ID" referencedTableName="OWNERS"
-                                 referencedColumnNames="ID"/>
-        <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="MACHINE_TYPE_ID" constraintName="FK_MACHINE_DICT_MACHINE_TYPE_ID" referencedTableName="DICT_MACHINE_TYPE"
                                  referencedColumnNames="ID"/>
         <addForeignKeyConstraint baseTableName="MACHINES" baseColumnNames="LOCATION_ID" constraintName="FK_MACHINE_LOCATION_ID" referencedTableName="LOCATIONS"
                                  referencedColumnNames="ID"/>
@@ -107,14 +107,18 @@
             <column name="name" value="Frank Machine"/>
             <column name="owner_id" value="1"/>
             <column name="location_id" value="1"/>
-            <column name="machine_type_id" value="1"/>
+            <column name="num_product_space" value="120"/>
+            <column name="machine_type" value="FOOD"/>
+            <column name="description" value="Short desc"/>
         </insert>
         <insert tableName="MACHINES">
             <column name="ID" value="2"/>
             <column name="name" value="Donkey Machine"/>
             <column name="owner_id" value="2"/>
             <column name="location_id" value="2"/>
-            <column name="machine_type_id" value="3"/>
+            <column name="num_product_space" value="120"/>
+            <column name="machine_type" value="TOYS"/>
+            <column name="description" value="Short desc"/>
         </insert>
 
     </changeSet>
