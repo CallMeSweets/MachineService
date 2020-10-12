@@ -1,0 +1,12 @@
+<mat-dialog-content class="layout-labels">
+  <p fxFlex fxLayoutAlign="center" fxLayout="row" mat-dialog-title>{{data.message}}</p>
+
+  <div fxFlex fxLayoutAlign="center" fxLayout="row" class="button-style">
+    <button mat-raised-button fxFlex="30" class="save_button" (click)="onConfirm() ">
+      SUBMIT
+    </button>
+    <button mat-raised-button color="warn" fxFlex="30" style="margin-left: 10%" (click)="onDismiss()">
+      CANCEL
+    </button>
+  </div>
+</mat-dialog-content>

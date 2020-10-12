@@ -1,6 +1,5 @@
 package com.configuration.machine.dto;
 
-import com.configuration.machine.enums.ProductType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +11,6 @@ public class ProductDTO {
     private String name;
     private Integer price;
     private Integer weight;
-    private ProductType productType;
+    private String productType;
     private Long ownerId;
 }

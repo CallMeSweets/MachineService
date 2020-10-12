@@ -38,19 +38,19 @@
     <insert tableName="PRODUCTS">
         <column name="ID" value="1"/>
         <column name="NAME" value="SALTY STICKS"/>
-        <column name="PRODUCT_TYPE_ID" value="3"/>
+        <column name="PRODUCT_TYPE" value="SNACKS"/>
         <column name="OWNER_ID" value="1"/>
     </insert>
     <insert tableName="PRODUCTS">
         <column name="ID" value="2"/>
         <column name="NAME" value="PEPSI 0.5L"/>
-        <column name="PRODUCT_TYPE_ID" value="2"/>
+        <column name="PRODUCT_TYPE" value="SNACKS"/>
         <column name="OWNER_ID" value="1"/>
     </insert>
     <insert tableName="PRODUCTS">
         <column name="ID" value="3"/>
         <column name="NAME" value="TWIX"/>
-        <column name="PRODUCT_TYPE_ID" value="1"/>
+        <column name="PRODUCT_TYPE" value="SNACKS"/>
         <column name="OWNER_ID" value="2"/>
     </insert>
 

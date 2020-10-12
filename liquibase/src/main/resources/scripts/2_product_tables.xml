@@ -21,7 +21,7 @@
         <column name="NAME" type="varchar(50)"/>
         <column name="PRICE" type="int"/>
         <column name="WEIGHT" type="int"/>
-        <column name="PRODUCT_TYPE_ID" type="int"/>
+        <column name="PRODUCT_TYPE" type="varchar(20)"/>
     </createTable>
 
     <addUniqueConstraint tableName="PRODUCTS" columnNames="NAME" constraintName="UQ_PRODUCTS_NAME"/>

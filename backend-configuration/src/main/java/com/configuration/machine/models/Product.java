@@ -1,6 +1,5 @@
 package com.configuration.machine.models;
 
-import com.configuration.machine.enums.ProductType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,8 +24,8 @@ public class Product {
     @Column(name = "WEIGHT")
     private Integer weight;
 
-    @Column(name = "PRODUCT_TYPE_ID")
-    ProductType productType;
+    @Column(name = "PRODUCT_TYPE")
+    private String productType;
 
     @ManyToOne
     @JoinColumn(name = "OWNER_ID")
