@@ -48,7 +48,7 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
         console.log(error);
       });
 
-    this.selection.changed.subscribe(() => {
+    this.subscriptions$.selectionChanged = this.selection.changed.subscribe(() => {
       (this.selection.selected.length > 0) ?
         this.isDeleteButtonDisabled = false :
         this.isDeleteButtonDisabled = true;
@@ -106,13 +106,14 @@ export class LocationComponent  implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.subscriptions$.dialogRefEditLocation = dialogRef.afterClosed().subscribe(location => {
-      const data = this.dataSource.data;
-      const index = data.indexOf(this.currentlyModifiedLocation);
-      this.locationService.updateLocationForUser(location).subscribe(updatedLocation => {
-        data[index] = updatedLocation;
-        this.dataSource.data = data;
-      });
-
+      if(location) {
+        const data = this.dataSource.data;
+        const index = data.indexOf(this.currentlyModifiedLocation);
+        this.locationService.updateLocationForUser(location).subscribe(updatedLocation => {
+          data[index] = updatedLocation;
+          this.dataSource.data = data;
+        });
+      }
     });
   }
 

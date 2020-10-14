@@ -16,8 +16,8 @@ public class MachineDTO {
     private Long id;
     private String name;
     private Long ownerId;
-    private Long locationId;
-    private Integer numProductSpace;
+    private LocationDTO locationDTO;
+    private Integer totalSpace;
     private String machineType;
     private String description;
 

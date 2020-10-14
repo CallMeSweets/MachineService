@@ -36,8 +36,8 @@ public class Machine {
     @JoinColumn(name = "OWNER_ID")
     private Owner owner;
 
-    @Column(name = "NUM_PRODUCT_SPACE")
-    private Integer numProductSpace;
+    @Column(name = "TOTAL_SPACE")
+    private Integer totalSpace;
 
     @Column(name = "MACHINE_TYPE")
     private String machineType;

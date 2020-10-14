@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Product} from '../../models/Product';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Subscription} from 'rxjs';
@@ -20,6 +20,16 @@ export class ProductComponent implements OnInit, OnDestroy {
   subscriptions$: { [key: string]: Subscription } = {};
   currentlyModifiedProduct: Product;
 
+  @ViewChild(MatSort, {static: false})
+  set sort(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
+
+  @ViewChild(MatPaginator, {static: false})
+  set paginator(paginator: MatPaginator) {
+    this.dataSource.paginator = paginator;
+  }
+
   constructor(private productService: ProductService,
               private dialog: MatDialog,
               private confirmService: ConfirmService) { }
@@ -32,7 +42,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         console.log(error);
       });
 
-    this.selection.changed.subscribe(() => {
+    this.subscriptions$.selectionChanged = this.selection.changed.subscribe(() => {
         (this.selection.selected.length > 0) ?
             this.isDeleteButtonDisabled = false :
             this.isDeleteButtonDisabled = true;
@@ -86,13 +96,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions$.dialogRefEditLocation = dialogRef.afterClosed().subscribe(product => {
-      const data = this.dataSource.data;
-      const index = data.indexOf(this.currentlyModifiedProduct);
-      this.productService.updateProductForUser(product).subscribe(updatedProduct => {
-        data[index] = updatedProduct;
-        this.dataSource.data = data;
-      });
-
+      if (product) {
+        const data = this.dataSource.data;
+        const index = data.indexOf(this.currentlyModifiedProduct);
+        this.productService.updateProductForUser(product).subscribe(updatedProduct => {
+          data[index] = updatedProduct;
+          this.dataSource.data = data;
+        });
+      }
     });
   }
 

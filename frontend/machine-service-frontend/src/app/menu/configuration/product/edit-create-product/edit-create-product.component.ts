@@ -36,7 +36,7 @@ export class EditCreateProductComponent implements OnInit, OnDestroy, AfterViewI
                                                            Validators.maxLength(4)]),
 
       type: new FormControl('', [Validators.required,
-                                                         Validators.maxLength(255)]),
+                                                         Validators.maxLength(25)]),
     });
 
     if(this.data.product) {

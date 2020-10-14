@@ -38,7 +38,7 @@ public class ConverterDTO {
         machineConverted.setName(machineDTO.getName());
         machineConverted.setMachineType(machineDTO.getMachineType());
         machineConverted.setDescription(machineDTO.getDescription());
-        machineConverted.setNumProductSpace(machineDTO.getNumProductSpace());
+        machineConverted.setTotalSpace(machineDTO.getTotalSpace());
 
         log.trace("MachineDTO converted to Machine, machineId: ", machineConverted.getName());
 
@@ -65,8 +65,8 @@ public class ConverterDTO {
         machineDTO.setName(machine.getName());
         machineDTO.setMachineType(machine.getMachineType());
         machineDTO.setDescription(machine.getDescription());
-        machineDTO.setNumProductSpace(machine.getNumProductSpace());
-        machineDTO.setLocationId(machine.getLocation().getId());
+        machineDTO.setTotalSpace(machine.getTotalSpace());
+        machineDTO.setLocationDTO(this.convertLocationToLocationDTO(machine.getLocation()));
         machineDTO.setOwnerId(machine.getOwner().getId());
 
         log.trace("Machine converted to MachineDTO, machineId: ", machine.getId());

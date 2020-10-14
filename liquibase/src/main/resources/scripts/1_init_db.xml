@@ -92,7 +92,7 @@
             <column name="name" type="varchar(50)"/>
             <column name="owner_id" type="int"/>
             <column name="location_id" type="int"/>
-            <column name="num_product_space" type="int"/>
+            <column name="total_space" type="int"/>
             <column name="machine_type" type="varchar(20)"/>
             <column name="description" type="varchar(20)"/>
         </createTable>
@@ -107,7 +107,7 @@
             <column name="name" value="Frank Machine"/>
             <column name="owner_id" value="1"/>
             <column name="location_id" value="1"/>
-            <column name="num_product_space" value="120"/>
+            <column name="total_space" value="120"/>
             <column name="machine_type" value="FOOD"/>
             <column name="description" value="Short desc"/>
         </insert>
@@ -116,7 +116,7 @@
             <column name="name" value="Donkey Machine"/>
             <column name="owner_id" value="2"/>
             <column name="location_id" value="2"/>
-            <column name="num_product_space" value="120"/>
+            <column name="total_space" value="120"/>
             <column name="machine_type" value="TOYS"/>
             <column name="description" value="Short desc"/>
         </insert>

@@ -49,7 +49,7 @@ public class MachineService {
         Owner owner = ownerRepository.findById(machineDTO.getOwnerId()).get();
         machine.setOwner(owner);
 
-        Location location = locationRepository.findById(machineDTO.getLocationId()).get();
+        Location location = locationRepository.findById(machineDTO.getLocationDTO().getId()).get();
         machine.setLocation(location);
 
         log.trace("save new machine to db");
@@ -67,7 +67,10 @@ public class MachineService {
     public MachineDTO updateMachine(MachineDTO machineDTO) {
         log.info("update location in db");
         Machine machine = machineRepository.findById(machineDTO.getId()).get();
+        Location location = locationRepository.findById(machineDTO.getLocationDTO().getId()).get();
         converterDTO.convertMachineDTOToMachine(machineDTO, machine);
+        converterDTO.convertLocationDTOToLocation(machineDTO.getLocationDTO(), location);
+        machine.setLocation(location);
         return converterDTO.convertMachineToMachineDTO(machineRepository.save(machine));
     }
 }

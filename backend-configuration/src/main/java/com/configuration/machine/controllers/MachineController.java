@@ -1,5 +1,6 @@
 package com.configuration.machine.controllers;
 
+import com.configuration.machine.converters.ConverterDTO;
 import com.configuration.machine.dto.MachineDTO;
 import com.configuration.machine.models.Machine;
 import com.configuration.machine.services.MachineService;
@@ -14,10 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/configuration/machines")
 @Log4j2
+@CrossOrigin
 public class MachineController {
 
+    private MachineService machineService;
+    private ConverterDTO converterDTO;
+
     @Autowired
-    MachineService machineService;
+    public MachineController(MachineService machineService, ConverterDTO converterDTO) {
+        this.machineService = machineService;
+        this.converterDTO = converterDTO;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity getAllOwnerMachines(@PathVariable("id") Long id){
@@ -27,8 +35,8 @@ public class MachineController {
 
     @PostMapping("/create")
     public ResponseEntity createMachine(@RequestBody MachineDTO machineDTO){
-        machineService.createMachine(machineDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+        Machine machine = machineService.createMachine(machineDTO);
+        return ResponseEntity.ok(converterDTO.convertMachineToMachineDTO(machine));
     }
 
     @PatchMapping("/update")

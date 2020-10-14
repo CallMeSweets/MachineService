@@ -19,6 +19,8 @@ import {OnlyNumberDirective} from './directives/OnlyNumber';
 import { EditCreateProductComponent } from './configuration/product/edit-create-product/edit-create-product.component';
 import {ProductComponent} from './configuration/product/product.component';
 import { ConfirmDialogWindowComponent } from './shared/confirm-dialog-window/confirm-dialog-window.component';
+import { MachineComponent } from './configuration/machine/machine.component';
+import { EditCreateMachineComponent } from './configuration/machine/edit-create-machine/edit-create-machine.component';
 
 
 
@@ -30,7 +32,9 @@ import { ConfirmDialogWindowComponent } from './shared/confirm-dialog-window/con
     EditCreateLocationComponent,
     OnlyNumberDirective,
     EditCreateProductComponent,
-    ConfirmDialogWindowComponent
+    ConfirmDialogWindowComponent,
+    MachineComponent,
+    EditCreateMachineComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +60,8 @@ import { ConfirmDialogWindowComponent } from './shared/confirm-dialog-window/con
   bootstrap: [SupportComponent],
   entryComponents: [EditCreateLocationComponent,
                     EditCreateProductComponent,
-                    ConfirmDialogWindowComponent],
+                    ConfirmDialogWindowComponent,
+                    EditCreateMachineComponent],
   providers: [MatDialog,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }]
