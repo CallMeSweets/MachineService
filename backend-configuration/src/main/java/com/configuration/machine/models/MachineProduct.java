@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class MachineProducts {
+@Table(name = "MACHINE_PRODUCTS")
+public class MachineProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +24,8 @@ public class MachineProducts {
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
+
+    @Column(name = "NUMBER_OF_PRODUCTS")
+    private Integer numberOfProducts;
 
 }

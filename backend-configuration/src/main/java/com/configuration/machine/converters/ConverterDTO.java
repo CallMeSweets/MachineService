@@ -2,9 +2,11 @@ package com.configuration.machine.converters;
 
 import com.configuration.machine.dto.LocationDTO;
 import com.configuration.machine.dto.MachineDTO;
+import com.configuration.machine.dto.MachineProductDTO;
 import com.configuration.machine.dto.ProductDTO;
 import com.configuration.machine.models.Location;
 import com.configuration.machine.models.Machine;
+import com.configuration.machine.models.MachineProduct;
 import com.configuration.machine.models.Product;
 import lombok.extern.log4j.Log4j2;
 
@@ -31,7 +33,7 @@ public class ConverterDTO {
     }
 
     public  Machine convertMachineDTOToMachine(MachineDTO machineDTO, Machine machine) {
-        log.trace("machine convertion to machineDTO, machineId: " + machineDTO.getId());
+        log.trace("machine conversion to machineDTO, machineId: " + machineDTO.getId());
         Machine machineConverted = null;
         machineConverted = (machine != null) ? machine : new Machine();
 
@@ -58,7 +60,7 @@ public class ConverterDTO {
     }
 
     public MachineDTO convertMachineToMachineDTO(Machine machine){
-        log.trace("machine convertion to machineDTO, machineId: " + machine.getId());
+        log.trace("machine conversion to machineDTO, machineId: " + machine.getId());
         MachineDTO machineDTO = new MachineDTO();
 
         machineDTO.setId(machine.getId());
@@ -75,7 +77,7 @@ public class ConverterDTO {
     }
 
     public List<LocationDTO> convertListLocationToListLocationDTO(List<Location> locations){
-        log.trace("list location convertion to list locationDTO");
+        log.trace("list location conversion to list locationDTO");
         if(locations == null || locations.size() == 0){
             log.warn("Location list is null or empty.");
         }
@@ -89,7 +91,7 @@ public class ConverterDTO {
     }
 
     public LocationDTO convertLocationToLocationDTO(Location location){
-        log.trace("location convertion to locationDTO, locationId: " + location.getId());
+        log.trace("location conversion to locationDTO, locationId: " + location.getId());
         LocationDTO locationDTO = new LocationDTO();
 
         locationDTO.setCity(location.getCity());
@@ -105,7 +107,7 @@ public class ConverterDTO {
     }
 
     public Location convertLocationDTOToLocation(LocationDTO locationDTO, Location location){
-        log.trace("locationDTO convertion to location");
+        log.trace("locationDTO conversion to location");
         Location locationConverted = null;
         locationConverted = (location != null) ? location : new Location();
 
@@ -119,7 +121,7 @@ public class ConverterDTO {
     }
 
     public List<Product> convertListProductDTOToListProduct(List<ProductDTO> productDTOs){
-        log.trace("list product convertion to list productDTO");
+        log.trace("list product conversion to list productDTO");
         if(productDTOs == null || productDTOs.size() == 0){
             log.warn("ProductDTO list is null or empty.");
         }
@@ -133,7 +135,7 @@ public class ConverterDTO {
     }
 
     public Product convertDTOProductToProduct(ProductDTO productDTO, Product product){
-        log.trace("productDTO convertion to product");
+        log.trace("productDTO conversion to product");
         Product productConverted = null;
         productConverted = (product != null) ? product : new Product();
 
@@ -146,7 +148,7 @@ public class ConverterDTO {
     }
 
     public List<ProductDTO> convertListProductToListProductDTO(List<Product> products){
-        log.trace("list product convertion to list productDTO");
+        log.trace("list product conversion to list productDTO");
         if(products == null || products.size() == 0){
             log.warn("Product list is null or empty.");
         }
@@ -160,7 +162,7 @@ public class ConverterDTO {
     }
 
     public ProductDTO convertProductToProductDTO(Product product){
-        log.trace("product convertion to productDTO");
+        log.trace("product conversion to productDTO");
 
         ProductDTO productDTO = new ProductDTO();
 
@@ -173,4 +175,31 @@ public class ConverterDTO {
 
         return productDTO;
     }
+
+    public MachineProductDTO convertMachineProductToMachineProductDTO(MachineProduct machineProduct) {
+        MachineProductDTO machineProductDTO = new MachineProductDTO();
+
+        machineProductDTO.setId(machineProduct.getId());
+        machineProductDTO.setMachineDTO(this.convertMachineToMachineDTO(machineProduct.getMachine()));
+        machineProductDTO.setProductDTO(this.convertProductToProductDTO(machineProduct.getProduct()));
+        machineProductDTO.setNumberOfProducts(machineProduct.getNumberOfProducts());
+        machineProductDTO.getMachineDTO().setLocationDTO(null);
+
+        return machineProductDTO;
+    }
+
+    public List<MachineProductDTO> convertListMachineProductToListMachineProductDTO(List<MachineProduct> machineProducts) {
+        log.trace("list machineProduct conversion to list productDTO");
+        if(machineProducts == null || machineProducts.size() == 0){
+            log.warn("Product list is null or empty.");
+        }
+
+        List<MachineProductDTO> machineProductDTOs = new ArrayList<>();
+        for(MachineProduct machineProduct: machineProducts){
+            machineProductDTOs.add(this.convertMachineProductToMachineProductDTO(machineProduct));
+        }
+
+        return machineProductDTOs;
+    }
+
 }

@@ -45,8 +45,8 @@ public class Machine {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)
-    private Set<MachineProducts> machineProducts;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)
+//    private Set<MachineProduct> machineProducts;
 
 }
