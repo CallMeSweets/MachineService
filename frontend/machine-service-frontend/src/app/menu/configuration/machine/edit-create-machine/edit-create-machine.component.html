@@ -1,0 +1,48 @@
+<form [formGroup]="machineForm">
+  <mat-dialog-content class="layout-labels">
+    <h2 fxFlex fxLayoutAlign="center" fxLayout="row">
+      <strong>{{data.formType}}</strong>
+    </h2>
+    <mat-form-field>
+      <mat-label>name</mat-label>
+      <input matInput type="text" formControlName="name" [errorStateMatcher]="machineMatcher" required/>
+      <mat-error *ngIf="hasError('name', 'required')">required</mat-error>
+      <mat-error *ngIf="hasError('name', 'maxlength')">too long</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>total space</mat-label>
+      <input matInput type="text" formControlName="totalSpace" [errorStateMatcher]="machineMatcher" OnlyNumber="true" required/>
+      <mat-error *ngIf="hasError('totalSpace', 'required')">required</mat-error>
+      <mat-error *ngIf="hasError('totalSpace', 'maxlength')">too long</mat-error>
+      <mat-error *ngIf="hasError('totalSpace', 'pattern')">only numbers</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>type</mat-label>
+      <input matInput formControlName="type" [errorStateMatcher]="machineMatcher" required maxlength="25"/>
+      <mat-error *ngIf="hasError('type', 'required')">required</mat-error>
+      <mat-error *ngIf="hasError('type', 'maxlength')">too long</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>description</mat-label>
+      <input matInput type="text" formControlName="description" [errorStateMatcher]="machineMatcher" required/>
+      <mat-error *ngIf="hasError('description', 'required')">required</mat-error>
+      <mat-error *ngIf="hasError('description', 'maxlength')">too long</mat-error>
+    </mat-form-field>
+    <mat-form-field style="margin-top: 5px">
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location" required (selectionChange)="setActualLocation($event.value)">
+        <mat-option *ngFor="let location of data.userLocations" [value]="location">{{location.city + ", " + location.street + " " + location.streetNumber}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="hasError('location', 'required')">required</mat-error>
+    </mat-form-field>
+
+    <div fxFlex fxLayoutAlign="center" fxLayout="row" class="button-style">
+      <button mat-raised-button fxFlex="30" class="save_button" [disabled]="isSaveButtonDisabled$" (click)="onSave() ">
+        {{data.confirmButton}}
+      </button>
+      <button mat-raised-button color="warn" fxFlex="30" style="margin-left: 10%" (click)="onCancel()">
+        CANCEL
+      </button>
+    </div>
+  </mat-dialog-content>
+</form>
